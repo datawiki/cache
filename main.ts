@@ -7,7 +7,6 @@ config(); // Optional for local dev
 
 const redisHost = Deno.env.get("REDIS_HOST");
 const redisPort = parseInt(Deno.env.get("REDIS_PORT") || "6379");
-const redisPassword = Deno.env.get("REDIS_PASSWORD");
 
 const redis = await connect({
   hostname: redisHost,
