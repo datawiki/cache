@@ -1,6 +1,7 @@
 import { connect } from "redis";
 import { createClient } from "supabase";
-import { config } from "dotenv";
+import { load } from "https://deno.land/std@0.224.0/dotenv/mod.ts";
+const env = await load();
 
 config(); // Optional for local dev
 
