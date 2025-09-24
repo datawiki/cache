@@ -1,27 +1,9 @@
 {
   "compilerOptions": {
-    "lib": ["deno.ns", "dom"],
-    "target": "ES2022"
+    "lib": ["deno.ns", "dom"]
   },
   "importMap": "./import_map.json",
   "tasks": {
-    "start": "deno run --allow-net --allow-env --allow-read main.ts",
-    "dev": "deno run --watch --allow-net --allow-env --allow-read main.ts"
-  },
-  "lint": {
-    "files": {
-      "include": ["./"]
-    }
-  },
-  "fmt": {
-    "files": {
-      "include": ["./"]
-    },
-    "options": {
-      "useTabs": false,
-      "lineWidth": 80,
-      "indentWidth": 2
-    }
+    "start": "deno run --allow-net --allow-env main.ts"
   }
 }
-
