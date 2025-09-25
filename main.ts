@@ -1,5 +1,5 @@
 import { connect } from "redis";
-import { createClient } from "supabase";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2.0.0";
 
 // Read environment variables injected by Railway
 const redisHost = Deno.env.get("REDIS_HOST");
