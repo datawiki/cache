@@ -1,21 +1,17 @@
 // main.ts
 
-import { connect } from "https://deno.land/x/redis/mod.ts";
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2.0.0?bundle";
+import { connect } from "https://deno.land/x/redis@v0.40.0/mod.ts";
 
-// Load environment variables
-const redisHost = Deno.env.get("REDIS_HOST");
-const redisPort = parseInt(Deno.env.get("REDIS_PORT") || "6380"); // TLS port
+// Read environment variables
+const redisHost = Deno.env.get("REDIS_HOST"); // e.g. "redis.upstash.io"
+const redisPort = parseInt(Deno.env.get("REDIS_PORT") || "6380");
 const redisPassword = Deno.env.get("REDIS_PASSWORD");
-const supabaseUrl = Deno.env.get("SUPABASE_URL");
-const supabaseKey = Deno.env.get("SUPABASE_KEY");
 
-// Validate required variables
-if (!redisHost || !redisPort || !redisPassword || !supabaseUrl || !supabaseKey) {
-  throw new Error("Missing required environment variables");
+if (!redisHost || !redisPassword) {
+  throw new Error("Missing Redis credentials");
 }
 
-// Connect to Redis with TLS
+// ✅ Connect to Redis with TLS
 const redis = await connect({
   hostname: redisHost,
   port: redisPort,
@@ -23,13 +19,9 @@ const redis = await connect({
   tls: true
 });
 
-// Test Redis connection
-try {
-  const pong = await redis.ping();
-  console.log("✅ Redis connected:", pong); // Should log "PONG"
-} catch (err) {
-  console.error("❌ Redis connection failed:", err);
-}
+// Test connection
+const pong = await redis.ping();
+console.log("Redis says:", pong); // Should log "PONG"
 
 // Connect to Supabase
 const supabase = createClient(supabaseUrl, supabaseKey);
