@@ -1,12 +1,13 @@
-import { connectTLS } from "https://deno.land/x/redis/mod.ts";
+import { connect } from "https://deno.land/x/redis/mod.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.0.0?bundle";
 
 // Read environment variables
-const redisHost = Deno.env.get("REDIS_HOST");
-const redisPort = parseInt(Deno.env.get("REDIS_PORT") || "6380"); // TLS port
-const redisPassword = Deno.env.get("REDIS_PASSWORD");
-const supabaseUrl = Deno.env.get("SUPABASE_URL");
-const supabaseKey = Deno.env.get("SUPABASE_KEY");
+const redis = await connect({
+  hostname: Deno.env.get("REDIS_HOST")!,
+  port: parseInt(Deno.env.get("REDIS_PORT")!),
+  password: Deno.env.get("REDIS_PASSWORD")!,
+  tls: true // 👈 This enables TLS
+});
 
 // Validate required variables
 if (!redisHost || !redisPort || !redisPassword || !supabaseUrl || !supabaseKey) {
